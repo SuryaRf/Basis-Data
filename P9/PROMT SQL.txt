@@ -1,0 +1,64 @@
+- mysql -u root -p
+
+- create database Data_Pegawai;
+
+- show databases;
+
+- use Data_Pegawai;
+
+- create table pegawai (
+no_pegawai varchar (10) not null primary key,
+nama_pegawai varchar (50) not null,
+golongan varchar (1) not null,
+constraint no_pegawai_format check (no_pegawai like 'Peg%'),
+foreign key (golongan) references golongan(golongan));
+
+- create table golongan (
+golongan varchar (1) not null primary key,
+besar_gaji varchar(10) not null);
+
+- create table proyek (
+no_proyek varchar (10) not null primary key,
+nama_proyek varchar (10) not null,
+constraint no_proyek_format check (no_proyek like 'NP%'));
+
+- create table proyek_pegawai (
+no_proyek varchar (10) not null, 
+no_pegawai varchar (10) not null,
+foreign key (no_proyek) references proyek(no_proyek),
+foreign key (no_pegawai) references pegawai(no_pegawai));
+
+- show tables;
+
+- insert into golongan(golongan, besar_gaji)
+    -> value 
+    -> ('A', '1.000.000'),
+    -> ('B', '900.000'),
+    -> ('C', '750.000');
+
+- insert into pegawai(no_pegawai, nama_pegawai, golongan)
+    -> value
+    -> ('Peg01', 'Anton', 'A'),
+    -> ('Peg02', 'Paula', 'B'),
+    -> ('Peg06', 'Koko', 'C'),
+    -> ('Peg12', 'Sita', 'B'),
+    -> ('Peg14', 'Yusni', 'B');
+
+- insert into proyek(no_proyek, nama_proyek)
+    -> value
+    -> ('NP001', 'BRR'),
+    -> ('NP002', 'PEMDA');
+
+- insert into proyek_pegawai(no_proyek, no_pegawai)
+    -> value
+    -> ('NP001', 'Peg01'),
+    -> ('NP001', 'Peg02'),
+    -> ('NP001', 'Peg06'),
+    -> ('NP002', 'Peg01'),
+    -> ('NP002', 'Peg12'),
+    -> ('NP002', 'Peg14');
+
+- select* from golongan;
+- select* from proyek;
+- select* from pegawai;
+- select* from proyek_pegawai;
